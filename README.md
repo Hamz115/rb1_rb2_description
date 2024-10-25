@@ -8,7 +8,7 @@ This package makes integrating controlling the RB1 robot easier by using ROS2 Co
 Download the git repository
 cd ~ros2_ws/src
 
-git clone 
+git clone https://github.com/Hamz115/rb1_rb2_description.git
 
 cd ~ros2_ws
 
