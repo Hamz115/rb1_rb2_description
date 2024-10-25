@@ -151,6 +151,14 @@
       </ros>
       <parameters>$(find rb1_ros2_description)/config/rb1_controller.yaml</parameters>
     </plugin>
+
+    <plugin filename="libgazebo_ros_force_system.so" name="gazebo_ros_force_system">
+      <ros>
+        <namespace>/${robot_name}</namespace>
+      </ros>
+      <parameters>$(find rb1_ros2_description)/config/rb1_ros_force_system.yaml</parameters>
+   </plugin> 
+
   </gazebo>   
 
 </robot>
