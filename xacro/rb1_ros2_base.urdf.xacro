@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<robot name="rb1_base"
-	xmlns:xacro="http://www.ros.org/wiki/xacro">
-
+<robot name="rb1_base" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:arg name="robot_name" default=""/>
+    <xacro:property name="robot_name" value="$(arg robot_name)"/>
 
 	<!-- ***************** -->
 	<!-- Imported elements -->
@@ -58,7 +58,7 @@
 	<xacro:arg name="prefix" default="robot_"/>
 	<xacro:arg name="ros_planar_move_plugin" default="false"/>
 	<xacro:arg name="gpu" default="false"/>
-    
+
 	<!-- *************** -->
 	<!-- Robots Elements -->
 	<!-- *************** -->
@@ -118,5 +118,39 @@
 	<!-- Gazebo ros2 control plugins -->
 	<!-- <xacro:ros2_control/> -->
 
+    <ros2_control name="diff_drive" type="system">
+      <hardware>
+          <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+      </hardware>
+    
+      <joint name="robot_left_wheel_joint">
+        <command_interface name="velocity">
+          <param name="min">-1</param>
+          <param name="max">1</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+    
+      <joint name="robot_right_wheel_joint">
+        <command_interface name="velocity">
+          <param name="min">-1</param>
+          <param name="max">1</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+    
+    </ros2_control>
+   <gazebo>
+    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+      <ros>
+        <namespace>/${robot_name}</namespace>
+      </ros>
+      <parameters>$(find rb1_ros2_description)/config/rb1_controller.yaml</parameters>
+    </plugin>
+  </gazebo>   
 
 </robot>
